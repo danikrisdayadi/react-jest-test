@@ -1,62 +1,62 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import {render, screen, fireEvent} from '@testing-library/react';
 import App from './App';
 
 test('button has correct initial colour', () => {
-  render(<App />);
-  const colorButton = screen.getByRole('button', { name: "Change to blue" });
-  expect(colorButton).toHaveStyle({ backgroundColor: 'red' });
+    render (<App/>);
+    const colorButton = screen.getByRole('button', {name: "Change to blue"});
+    expect(colorButton).toHaveStyle({backgroundColor: 'red'});
 
-  fireEvent.click(colorButton);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'blue' });
-  expect(colorButton.textContent).toBe('Change to red');
+    fireEvent.click(colorButton);
+    expect(colorButton).toHaveStyle({backgroundColor: 'blue'});
+    expect(colorButton).toHaveTextContent('Change to red');
 });
 
 test('initial conditions', () => {
-  render(<App />);
+    render (<App/>);
 
-  const colorButton = screen.getByRole('button', { name: 'Change to blue' });
-  expect(colorButton).toBeEnabled();
+    const colorButton = screen.getByRole('button', {name: 'Change to blue'});
+    expect(colorButton).toBeEnabled();
 
-  const checkbox = screen.getByRole('checkbox');
-  expect(checkbox).not.toBeChecked();
+    const checkbox = screen.getByRole('checkbox');
+    expect(checkbox).not.toBeChecked();
 });
 
 test('checkbox disables button', () => {
-  render(<App />);
+    render (<App/>);
 
-  const colorButton = screen.getByRole('button', { name: 'Change to blue' });
-  const checkbox = screen.getByRole('checkbox', { name: 'Disable button' });
+    const colorButton = screen.getByRole('button', {name: 'Change to blue'});
+    const checkbox = screen.getByRole('checkbox', {name: 'Disable button'});
 
-  fireEvent.click(checkbox);
-  expect(colorButton).not.toBeEnabled();
+    fireEvent.click(checkbox);
+    expect(colorButton).toBeDisabled();
 
-  fireEvent.click(colorButton);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'gray' });
-  expect(colorButton.textContent).toBe('Change to blue');
+    fireEvent.click(colorButton);
+    expect(colorButton).toHaveStyle({backgroundColor: 'gray'});
+    expect(colorButton).toHaveTextContent('Change to blue');
 
-  fireEvent.click(checkbox);
-  expect(colorButton).toBeEnabled();
+    fireEvent.click(checkbox);
+    expect(colorButton).toBeEnabled();
 
-  fireEvent.click(colorButton);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'blue' });
-  expect(colorButton.textContent).toBe('Change to red');
-   
+    fireEvent.click(colorButton);
+    expect(colorButton).toHaveStyle({backgroundColor: 'blue'});
+    expect(colorButton).toHaveTextContent('Change to red');
+
 });
 
 test('button change to gray when disabled', () => {
-  render(<App />);
-  const colorButton = screen.getByRole('button', { name: 'Change to blue' });
-  const checkbox = screen.getByRole('checkbox', { name: 'Disable button' });
-  fireEvent.click(checkbox);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'gray' });
-  fireEvent.click(checkbox);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'red' });
+    render (<App/>);
+    const colorButton = screen.getByRole('button', {name: 'Change to blue'});
+    const checkbox = screen.getByRole('checkbox', {name: 'Disable button'});
+    fireEvent.click(checkbox);
+    expect(colorButton).toHaveStyle({backgroundColor: 'gray'});
+    fireEvent.click(checkbox);
+    expect(colorButton).toHaveStyle({backgroundColor: 'red'});
 
-  fireEvent.click(colorButton);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'blue' });
-  fireEvent.click(checkbox);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'gray' });
-  fireEvent.click(checkbox);
-  expect(colorButton).toHaveStyle({ backgroundColor: 'blue' });
+    fireEvent.click(colorButton);
+    expect(colorButton).toHaveStyle({backgroundColor: 'blue'});
+    fireEvent.click(checkbox);
+    expect(colorButton).toHaveStyle({backgroundColor: 'gray'});
+    fireEvent.click(checkbox);
+    expect(colorButton).toHaveStyle({backgroundColor: 'blue'});
 
 })
